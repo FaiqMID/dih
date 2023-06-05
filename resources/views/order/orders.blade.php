@@ -14,7 +14,7 @@
     <div class="row d-flex justify-content-center">
         <div class="col-8">
             <h3 class="text-center m-2 mt-3">Pesanan</h3>
-            <ul class="nav nav-tabs">
+            {{-- <ul class="nav nav-tabs">
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#">Semua</a>
                 </li>
@@ -30,7 +30,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sudah Terkirim</a>
                   </li>
-              </ul>
+              </ul> --}}
         </div>
     </div>
     <div class="row d-flex justify-content-center mt-3">

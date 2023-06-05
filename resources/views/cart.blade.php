@@ -25,7 +25,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-2">
-                                    <a href="/product/{{ $item->id }}"><img style="object-fit:cover;width:100px;height:60px;" src="build/assets/images/items/{{ $item->id }}.jpg" class="rounded" alt="Thumbnail"></a>
+                                    <a href="/product/{{ $item->id }}"><img style="object-fit:cover;width:100px;height:60px;" src="{{ asset('build/assets/images/items/' . $item->attributes->image) }}" class="rounded"></a>
                                 </div>
                                 <div class="col-3">
                                     <div class="row">
@@ -60,19 +60,19 @@
                     </div>
                 </div>
                 @endforeach
-                @if(!Cart::isEmpty()){
+                @if(!Cart::isEmpty())
                     <form action="{{ route('cart.clear') }}" method="POST">
                         @csrf
                         <button class="btn sm-button-reverse mb-5">Kosongkan Keranjang</button>
                     </form>
-                }   
+                   
                 @else
                     <h2>Keranjang masih kosong!</h2>  
                     <h4>Silahkan tambahkan barang dulu dari <a href="/catalogue">katalog</a></h4> 
                 @endif
             </div>
             <div class="col-3">
-                @if(!Cart::isEmpty()){
+                @if(!Cart::isEmpty())
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <p class="font-weight-bold">Total Harga</p>
@@ -83,7 +83,7 @@
                         </form>
                     </div>
                 </div>
-                }
+                
                 @endif
             </div>
         </div>

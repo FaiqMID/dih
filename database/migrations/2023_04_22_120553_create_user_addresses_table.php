@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address');
-            $table->string('city');
-            $table->string('province');
-            $table->string('country');
-            $table->string('postal_code');
+            $table->string('address')->default('');
+            $table->string('city')->default('');
+            $table->string('province')->default('');
+            $table->string('country')->default('');
+            $table->string('postal_code')->default('');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

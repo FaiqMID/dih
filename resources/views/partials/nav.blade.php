@@ -71,34 +71,34 @@
                                 <div class="col-12 dropdown-item">
                                     <div class="row">
                                         <p class="text-wrap lh-1 col-12" disabled>{{ $notif->message }}</p>
-                                        <div class="col-12 d-flex justify-content-end">
-                                            @if(!$notif->is_read)
-                                                <form method="POST" action="{{ route('notif.markAsRead') }}">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{ $notif->id }}">
-                                                    <button type="button" class="btn btn-link text-reset" type="submit">
-                                                        <h6><small>
-                                                            Tandai sudah dibaca
-                                                            <span>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                                                                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                                                </svg>
-                                                            </span></small></h6>
-                                                    </button>
-                                                </form>
-                                            @else
-                                            <h6><small>
-                                                Sudah dibaca
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
-                                                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
-                                                    </svg>
-                                                </span>
-                                            </small></h6>
-                                            @endif
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-end">
+                            @if(!$notif->is_read)
+                            <form method="POST" action="{{ route('notif.markAsRead') }}">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $notif->id }}">
+                                <button class="btn btn-link text-reset" type="submit">
+                                    <h6><small>
+                                        Tandai sudah dibaca
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                                <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                            </svg>
+                                        </span></small></h6>
+                                </button>
+                            </form>
+                            @else
+                            <h6><small>
+                                Sudah dibaca
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                                    </svg>
+                                </span>
+                            </small></h6>
+                            @endif
                             </div>
                             @endforeach
                             <div class="row">
@@ -129,7 +129,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="/profile">Profil</a></li>
-                        <li><a class="dropdown-item" href="/orders">Pesanan</a></li>
+                        <li><a class="dropdown-item" href="/orders">Pesanan <span class="badge badge-primary">{{ $orderCount ? $orderCount : 0 }}</span></a></li>
                         @if (Auth::user()->role == 1)
                         <li><a class="dropdown-item" href="/catalogue/admin">Manajemen Katalog</a></li>
                         @elseif (Auth::user()->role == 2)
@@ -154,7 +154,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color:#24bbbe">
-                    <img src="build/assets/images/items/logo.jpg" alt="Logo" style="width: 100px; height: 50px; object-fit: cover;">
+                    <img src="{{ asset('build/assets/images/items/logo.jpg') }}" alt="Logo" style="width: 100px; height: 50px; object-fit: cover;">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
@@ -211,7 +211,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="background-color:#24bbbe">
-                    <img src="build/assets/images/items/logo.jpg" alt="Logo" style="width: 100px; height: 50px; object-fit: cover;">    
+                    <img src="{{ asset('build/assets/images/items/logo.jpg') }}" alt="Logo" style="width: 100px; height: 50px; object-fit: cover;">    
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">

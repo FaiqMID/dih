@@ -24,7 +24,7 @@
                         <input type="hidden" value="{{ $product->id }}" name="id">
                         <input type="hidden" value="{{ $product->product_name }}" name="name">
                         <input type="hidden" value="{{ $product->product_price }}" name="price">
-                        {{-- <input type="hidden" value="{{ $product->image }}"  name="image"> --}}
+                        <input type="hidden" value="{{ $product->image }}"  name="image">
                         
                         <input type="number" name="quantity" value="1" class="w-full text-center h-10 text-gray-800 outline-none rounded border border-gray-600 py-3" />
                         <input type="hidden" name="type" value="">

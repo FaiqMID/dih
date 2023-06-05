@@ -34,8 +34,10 @@ class CartController extends Controller
                 'quantity' => $request->quantity,
                 'attributes' => array(
                     'image' => $request->image,
-                )
+                ), 
+                'associatedModel' => 'Product'
             ]);
+            // dd(\Cart::getContent());
             session()->flash('success', 'Product is Added to Cart Successfully !');
             return redirect()->route('cart.list');
         }

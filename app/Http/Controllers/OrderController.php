@@ -68,7 +68,7 @@ class OrderController extends Controller
 
 	public function showOrders(){
 		$user_address_id = UserAddress::where('user_id', Auth::user()->id)->first();
-		$orders = OrderDetail::where('user_address_id', $user_address_id->id)->with('orderitem.product')->get();
+		$orders = OrderDetail::where('user_address_id', $user_address_id->id)->orderBy('created_at', 'desc')->with('orderitem.product')->get();
 					// ->join('order_items', 'order_details.id', '=', 'order_items.order_detail_id')
 					// ->join('products', 'order_items.product_id', '=', 'products.id')
 					// ->get(); // eloquent malah ribet >:(

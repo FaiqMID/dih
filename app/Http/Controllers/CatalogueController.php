@@ -26,8 +26,9 @@ class CatalogueController extends Controller
             $search->product_name = $saveSearch->product_name;
             $search->product_description = $saveSearch->product_description;
             $search->product_price = $saveSearch->product_price;
-            $search->product_category_id = $saveSearch->product_category_id;
-            $search->store_branch_id = $saveSearch->store_branch_id; 
+            $search->image = $saveSearch->image;
+            // $search->product_category_id = $saveSearch->product_category_id;
+            // $search->store_branch_id = $saveSearch->store_branch_id; 
             $search->save();
         }
         $products = Product::paginate(10);
@@ -46,6 +47,7 @@ class CatalogueController extends Controller
             $search->product_name = $saveSearch->product_name;
             $search->product_description = $saveSearch->product_description;
             $search->product_price = $saveSearch->product_price;
+            $search->image = $saveSearch->image;
             // $search->product_category_id = $saveSearch->product_category_id;
             // $search->store_branch_id = $saveSearch->store_branch_id; 
             $search->save();

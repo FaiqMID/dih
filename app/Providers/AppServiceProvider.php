@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Notification;
+use App\Models\OrderDetail;
+use App\Models\UserAddress;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -36,10 +38,13 @@ class AppServiceProvider extends ServiceProvider
                 if (\Cart::getContent()){
                     $cartCount = \Cart::getContent()->count();
                 }
+                $userAddress = UserAddress::where('user_id', Auth::user()->id)->first();
+                $orderCount = OrderDetail::where('user_address_id', $userAddress->id)->where('status', '<', 3)->count();
                 $view->with([
                     'notifs' => $notifications,
                     'notifCount' => $notifCount,
-                    'cartCount' => $cartCount
+                    'cartCount' => $cartCount,
+                    'orderCount' => $orderCount,
                 ]);
             }
         });
