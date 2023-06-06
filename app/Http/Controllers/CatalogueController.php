@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CatalogueController extends Controller
 {
@@ -157,20 +158,18 @@ class CatalogueController extends Controller
         $product->product_description = $request->description;
         $product->product_price = $request->price;
     
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $image = $request->file('image');
-            $imageName = time() . '.' . $image->extension();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = 'build/assets/images/items/';
+
     
             // Delete the previous image if it exists
-            if (!empty($product->image)) {
-                $imagePath = public_path('build/assets/images/items/' . $product->image);
-                if (File::exists($imagePath)) {
-                    File::delete($imagePath);
-                }
+            if ($product->image && Storage::exists('public/build/assets/images/items/' . $product->image)) {
+                Storage::delete('build/assets/images/items/' . $product->image);
             }
-    
-            $image->move(public_path('build/assets/images/items/'), $imageName);
-    
+            
+            $image->storeAs($destinationPath, $imageName);
             $product->image = $imageName;
         }
     
@@ -189,11 +188,8 @@ class CatalogueController extends Controller
         $product = Product::where('id', $request->id)->first();
         
         // Delete the item's image if it exists
-        if (!empty($product->image)) {
-            $imagePath = public_path('build/assets/images/items/' . $product->image);
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
+        if ($product->image && Storage::exists('public/build/assets/images/items/' . $product->image)) {
+            Storage::delete('build/assets/images/items/' . $product->image);
         }
 
         $product->delete();
