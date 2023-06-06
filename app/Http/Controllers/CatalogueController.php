@@ -114,7 +114,7 @@ class CatalogueController extends Controller
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = 'build/assets/images/items/';
-            $image->storeAs($destinationPath, $imageName);
+            $request->image->move(public_path($destinationPath), $imageName);
             $product->image = $imageName;
         }
         $product->save();
@@ -162,14 +162,13 @@ class CatalogueController extends Controller
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = 'build/assets/images/items/';
-
     
             // Delete the previous image if it exists
-            if ($product->image && Storage::exists('public/build/assets/images/items/' . $product->image)) {
-                Storage::delete('build/assets/images/items/' . $product->image);
+            if ($product->image && File::exists('public/build/assets/images/items/' . $product->image)) {
+                File::delete('build/assets/images/items/' . $product->image);
             }
             
-            $image->storeAs($destinationPath, $imageName);
+            $request->image->move(public_path($destinationPath), $imageName);
             $product->image = $imageName;
         }
     
@@ -188,8 +187,8 @@ class CatalogueController extends Controller
         $product = Product::where('id', $request->id)->first();
         
         // Delete the item's image if it exists
-        if ($product->image && Storage::exists('public/build/assets/images/items/' . $product->image)) {
-            Storage::delete('build/assets/images/items/' . $product->image);
+        if ($product->image && File::exists('public/build/assets/images/items/' . $product->image)) {
+            File::delete('build/assets/images/items/' . $product->image);
         }
 
         $product->delete();
