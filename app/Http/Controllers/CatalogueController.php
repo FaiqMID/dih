@@ -109,11 +109,11 @@ class CatalogueController extends Controller
         $product->product_name = $request->name;
         $product->product_description = $request->description;
         $product->product_price = $request->price;
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image') && $request->file('image')->isValid()){
             $image = $request->file('image');
-            $imageName = time() . '.' . $image->extension();
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
             $destinationPath = 'build/assets/images/items/';
-            $request->image->move(public_path($destinationPath), $imageName);
+            $image->storeAs($destinationPath, $imageName);
             $product->image = $imageName;
         }
         $product->save();

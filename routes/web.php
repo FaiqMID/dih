@@ -25,7 +25,7 @@ use App\Http\Controllers\NotificationController;
 Route::middleware('auth', 'isAdmin')->group(function(){
     Route::get('/catalogue/admin', [CatalogueController::class, 'indexAdmin'])->name('admin.catalogue');
     Route::get('/catalogue/create', [CatalogueController::class, 'create'])->name('admin.product.create');
-    Route::post('/catalogue/create', [CatalogueController::class, 'store'])->name('admin.product.store');
+    Route::post('/catalogue/store', [CatalogueController::class, 'store'])->name('admin.product.store');
     Route::get('/catalogue/edit/{id}', [CatalogueController::class, 'edit']);
     Route::post('/catalogue/update', [CatalogueController::class, 'update'])->name('admin.product.update');
     Route::delete('/catalogue/delete', [CatalogueController::class, 'destroy'])->name('admin.product.delete');

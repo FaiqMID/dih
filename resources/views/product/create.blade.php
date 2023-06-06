@@ -17,7 +17,7 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Gambar</label>
-            <input class="form-control" type="file" id="image" name="image">
+            <input class="form-control" type="file" id="image" name="image" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         @csrf
