@@ -8,6 +8,7 @@ use App\Models\OrderDetail;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use App\Events\OrderStatusChanged;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
@@ -63,7 +64,26 @@ class OrderController extends Controller
 			event(new OrderStatusChanged($checkout_detail));
 		}
 		
-		return view('order.payment')->with('info_pembayaran', $info_pembayaran);
+		\Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+		\Midtrans\Config::$isProduction = false;
+		\Midtrans\Config::$isSanitized = true;
+		\Midtrans\Config::$is3ds = true;
+
+		$params = array(
+			'transaction_details' => array(
+				'order_id' => $info_pembayaran['id_order'],
+				'gross_amount' => $info_pembayaran['total'],
+			),
+			'customer_details' => array(
+				'name' => Auth::user()->name,
+				'email' => Auth::user()->email,
+			),
+		);		
+		
+		$snapToken = \Midtrans\Snap::getSnapToken($params);
+		// dd($snapToken);
+
+		return view('order.payment')->with('info_pembayaran', $info_pembayaran)->with('snapToken', $snapToken);
     }
 
 	public function showOrders(){
@@ -113,5 +133,13 @@ class OrderController extends Controller
 		event(new OrderStatusChanged($order));
 
 		return redirect('/orders');
+	}
+
+	public function payMidTrans(Request $request){
+		$order = OrderDetail::where('id',$request->order_id)->first();
+		$order->status = 1;
+		$order->save();
+
+		event(new OrderStatusChanged($order));
 	}
 }

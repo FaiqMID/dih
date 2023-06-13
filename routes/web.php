@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('/checkout', [OrderController::class, 'addToCheckout'])->name('checkout');
     Route::post('/pay', [OrderController::class, 'pay']);
+    Route::post('/pay/midtrans', [OrderController::class, 'payMidTrans']);
     Route::get('/orders', [OrderController::class, 'showOrders'])->name('orders');
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::post('/notification/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notif.markAsRead');
@@ -66,6 +67,7 @@ Route::middleware('guest')->group(function(){
 
 // Bisa diakses kapan saja
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
+Route::post('/', [LandingPageController::class, 'paymentFail'])->name('payment.fail');
 Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue');
 Route::get('/catalogue/search', [CatalogueController::class, 'searchProduct']);
 Route::get('/catalogue/sort', [CatalogueController::class, 'sortProduct']);

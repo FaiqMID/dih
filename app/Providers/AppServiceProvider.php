@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             if (Auth::check()){
                 $notifications = Notification::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->limit(3)->get();
-                $notifCount = $notifications->where('is_read', false)->count();
+                $notifCount = Notification::where('user_id', Auth::user()->id)->where('is_read', false)->count();
                 \Cart::session(Auth::user()->id);
                 if (\Cart::getContent()){
                     $cartCount = \Cart::getContent()->count();
