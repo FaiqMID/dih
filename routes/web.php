@@ -36,6 +36,7 @@ Route::middleware('auth', 'isAdmin')->group(function(){
 Route::middleware('auth', 'isManager')->group(function(){
     Route::get('/orders/list', [OrderController::class, 'index']);
     Route::post('/orders/update', [OrderController::class, 'update']);
+    Route::delete('/orders/delete', [OrderController::class, 'destroy'])->name('manager.order.delete');
 });
 
 // Logged in user only routes

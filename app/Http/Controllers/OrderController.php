@@ -142,4 +142,17 @@ class OrderController extends Controller
 
 		event(new OrderStatusChanged($order));
 	}
+
+	public function destroy(Request $request)
+    {   
+        $order = OrderDetail::where('id', $request->id)->first();
+		$orderItems = OrderItem::where('order_detail_id', $request->id)->get();
+		foreach($orderItems as $item){
+			$item->delete();
+		}
+		
+        $order->delete();
+
+        return redirect()->back()->with('success', 'Item deleted successfully.');
+    }
 }

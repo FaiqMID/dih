@@ -47,12 +47,15 @@
                                         <button class="btn btn-outline-dark mr-2" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#orderItem'.$i }}">
                                             Detail
                                         </button>
-                                        @if ($order->status > 0 && $order->status < 3)
+                                        @if ($order->status >= 0 && $order->status < 3)
                                         <form action="/orders/update" method="post">
                                             @csrf
                                             <input type="hidden" name="id_order" value="{{ $order->id }}">
                                             <button class="btn btn-outline-success" type="submit">
                                               @switch($order->status)
+                                                @case(0)
+                                                    {{ "Sudah Bayar" }}
+                                                    @break
                                                 @case(1)
                                                     {{ "Kirim Barang" }}
                                                     @break
